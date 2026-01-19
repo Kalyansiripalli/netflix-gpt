@@ -1,10 +1,12 @@
 import React from "react";
+import Body from "./components/Body";
+import Header from "./components/Header";
 
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world! how are you</h1>
-    </div>
+    <>
+      <Body />
+    </>
   );
 };
 
