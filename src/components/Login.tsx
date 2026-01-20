@@ -8,9 +8,9 @@ import {
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const name = useRef(null);
-  const email = useRef(null);
-  const password = useRef(null);
+  const name = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
 
   const handleFormToggle = () => {
     setIsSignInForm(!isSignInForm);
