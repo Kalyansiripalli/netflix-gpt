@@ -1,4 +1,4 @@
-export const validateSignInData = (email, password) => {
+export const validateSignInData = (email: string, password: string) => {
   const isEmailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
     email,
   );
@@ -10,7 +10,11 @@ export const validateSignInData = (email, password) => {
   return null;
 };
 
-export const validateSignUpData = (fullName, email, password) => {
+export const validateSignUpData = (
+  fullName: string,
+  email: string,
+  password: string,
+) => {
   const isFullNameValid = fullName && fullName.length > 0;
   const isEmailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
     email,
