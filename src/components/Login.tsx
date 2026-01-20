@@ -1,10 +1,33 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import {
+  validateSignInData,
+  validateSignUpData,
+} from "../utils/validateFormData";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const name = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+
   const handleFormToggle = () => {
     setIsSignInForm(!isSignInForm);
+  };
+
+  const handleFormSubmission = () => {
+    const message = isSignInForm
+      ? validateSignInData(
+          email.current?.value || "",
+          password.current?.value || "",
+        )
+      : validateSignUpData(
+          name.current?.value || "",
+          email.current?.value || "",
+          password.current?.value || "",
+        );
+    setErrorMessage(message);
   };
 
   return (
@@ -31,34 +54,41 @@ const Login = () => {
         >
           {!isSignInForm && (
             <input
+              ref={name}
               type="text"
               className="text-white bg-gray-800 w-full p-2 my-4 rounded-md border-[1] border-white focus:outline-white focus:border-none"
               placeholder="Full Name"
             ></input>
           )}
           <input
+            ref={email}
             type="email"
             className="text-white bg-gray-800 w-full p-2 my-4 rounded-md border-[1] border-white focus:outline-white focus:border-none"
             placeholder="Email Address"
           ></input>
           <input
+            ref={password}
             type="password"
             className="text-white bg-gray-800 w-full p-2 my-4 rounded-md border-[1] border-white focus:outline-white focus:border-none"
             placeholder="Password"
           ></input>
+
+          {errorMessage && (
+            <span className="text-red-600 font-bold">{errorMessage}</span>
+          )}
           <h1 className="">
             {isSignInForm ? "New to Netflix ?" : "Already have an account ?"}{" "}
             <span
               className="underline cursor-pointer"
-              onClick={() => handleFormToggle()}
+              onClick={handleFormToggle}
             >
               {isSignInForm ? "Sign Up" : "Sign In"}
             </span>
           </h1>
           <button
             type="button"
-            className="p-2 my-4 bg-red-500 text-white w-full rounded-md cursor-pointer"
-            onClick={() => handleFormToggle()}
+            className="p-2 my-4 bg-red-600 text-white w-full rounded-md cursor-pointer"
+            onClick={handleFormSubmission}
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
