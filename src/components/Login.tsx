@@ -4,6 +4,11 @@ import {
   validateSignInData,
   validateSignUpData,
 } from "../utils/validateFormData";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -28,6 +33,44 @@ const Login = () => {
           password.current?.value || "",
         );
     setErrorMessage(message);
+    if (
+      isSignInForm &&
+      !message &&
+      email.current?.value &&
+      password.current?.value
+    ) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current?.value,
+        password.current?.value,
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+        });
+    } else if (
+      !isSignInForm &&
+      email.current?.value &&
+      password.current?.value
+    ) {
+      signInWithEmailAndPassword(
+        auth,
+        email.current?.value,
+        password.current?.value,
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+        });
+    }
   };
 
   return (
