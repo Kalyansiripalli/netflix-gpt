@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import Header from "./Header";
 import {
   validateSignInData,
@@ -7,10 +8,14 @@ import {
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { addUser } from "../utils/userSlice";
+import { loginPageBgImage } from "../utils/constants";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const name = useRef<HTMLInputElement>(null);
@@ -34,10 +39,10 @@ const Login = () => {
         );
     setErrorMessage(message);
     if (
-      isSignInForm &&
-      !message &&
+      !isSignInForm &&
       email.current?.value &&
-      password.current?.value
+      password.current?.value &&
+      name.current?.value
     ) {
       createUserWithEmailAndPassword(
         auth,
@@ -46,6 +51,17 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          return updateProfile(user, {
+            displayName: name.current?.value,
+          }).then(() => {
+            dispatch(
+              addUser({
+                uid: user.uid,
+                email: user.email || "NA",
+                displayName: name.current?.value,
+              }),
+            );
+          });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -53,7 +69,8 @@ const Login = () => {
           setErrorMessage(errorMessage);
         });
     } else if (
-      !isSignInForm &&
+      isSignInForm &&
+      !message &&
       email.current?.value &&
       password.current?.value
     ) {
@@ -64,6 +81,13 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          dispatch(
+            addUser({
+              uid: user.uid,
+              email: user.email || "NA",
+              displayName: user.displayName || "NA",
+            }),
+          );
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -76,11 +100,11 @@ const Login = () => {
   return (
     <div>
       <img
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/797df41b-1129-4496-beb3-6fc2f29c59d3/web/IN-en-20260112-TRIFECTA-perspective_004732f9-7464-4a7c-940b-4a51c4f0f73f_medium.jpg"
+        src={loginPageBgImage}
         alt="Background"
         className="h-screen w-screen"
       ></img>
-      <div className="absolute left-0 top-0">
+      <div className="absolute left-0 top-0 bg-linear-to-b from-black w-full">
         <Header />
       </div>
 
@@ -131,7 +155,7 @@ const Login = () => {
           <button
             type="button"
             className="p-2 my-4 bg-red-600 text-white w-full rounded-md cursor-pointer"
-            onClick={handleFormSubmission}
+            onClick={() => handleFormSubmission()}
           >
             {isSignInForm ? "Sign In" : "Sign Up"}
           </button>
