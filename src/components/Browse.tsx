@@ -15,13 +15,18 @@ const Browse = () => {
   usePopularMovies();
   useTopRatedMovies();
   useUpComingMovies();
-  const list = [
+  type Category =
+    | "upComingMovies"
+    | "topRatedMovies"
+    | "nowPlayingMovies"
+    | "popularMovies";
+  const list: Category[] = [
     "upComingMovies",
     "topRatedMovies",
     "nowPlayingMovies",
     "popularMovies",
   ];
-  const headinMap = {
+  const headinMap: Record<Category, string> = {
     upComingMovies: "UP COMING",
     topRatedMovies: "TOP RATED",
     nowPlayingMovies: "NOW PLAYING",

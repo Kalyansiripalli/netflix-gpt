@@ -1,5 +1,14 @@
 import { InfoIcon, Play, PlayCircleIcon } from "lucide-react";
-const VideoTitle = ({ original_title, overview }) => {
+
+interface VideoTitleProps {
+  original_title: string;
+  overview: string;
+}
+
+const VideoTitle: React.FC<VideoTitleProps> = ({
+  original_title,
+  overview,
+}) => {
   return (
     <div className="bg-linear-to-r from-black absolute top-0 left-0 h-full">
       <div className="flex flex-col gap-4 text-white h-full justify-center ml-16">

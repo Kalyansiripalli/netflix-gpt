@@ -3,9 +3,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
   uid?: string;
-  email?: string;
-  displayName?: string;
-  [key: string]: string | undefined;
+  // allow null since Firebase may return null email
+  email?: string | null;
+  displayName?: string | null;
+  [key: string]: string | undefined | null;
 }
 
 interface UserState {
