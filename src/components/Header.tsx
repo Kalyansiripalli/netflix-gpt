@@ -45,24 +45,26 @@ const Header = () => {
     <div className={`w-full h-16  flex justify-between items-center bg-black`}>
       <img src={headerLogo} alt="Logo" className="w-36 h-16 "></img>
       <div className="flex gap-10 items-center">
-        <button
-          onClick={handleGptPageToggle}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-200
-            ${isGptPageActive ? "bg-linear-to-r from-purple-500 to-pink-500 cursor-pointer" : "bg-linear-to-r from-blue-300 to-indigo-700 cursor-pointer"}
-            hover:scale-105 hover:brightness-110 focus:outline-none`}
-        >
-          <span className="text-white">
-            {isGptPageActive ? "Home" : "Netflix GPT"}
-          </span>
-          <Sparkles className="text-white w-5 h-5" />
-        </button>
         {user && (
-          <div className="flex gap-1 flex-row bg-white rounded-full p-2 ">
-            <LogOut
-              className="text-black w-5 h-5 cursor-pointer"
-              onClick={() => handleSignOut()}
-            />
-          </div>
+          <>
+            <button
+              onClick={handleGptPageToggle}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-200
+                ${isGptPageActive ? "bg-linear-to-r from-purple-500 to-pink-500 cursor-pointer" : "bg-linear-to-r from-blue-300 to-indigo-700 cursor-pointer"}
+                hover:scale-105 hover:brightness-110 focus:outline-none`}
+            >
+              <span className="text-white">
+                {isGptPageActive ? "Home" : "Netflix GPT"}
+              </span>
+              <Sparkles className="text-white w-5 h-5" />
+            </button>
+            <div className="flex gap-1 flex-row bg-white rounded-full p-2 ">
+              <LogOut
+                className="text-black w-5 h-5 cursor-pointer"
+                onClick={() => handleSignOut()}
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
