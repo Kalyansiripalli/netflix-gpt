@@ -6,6 +6,7 @@ import { addUser, deleteUser } from "../utils/userSlice";
 import { headerLogo, userAvatar } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNetflixGptPage } from "../utils/netflixGptSlice";
+import { LogOut, SparkleIcon, Sparkles } from "lucide-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -43,21 +44,21 @@ const Header = () => {
   return (
     <div className={`w-full h-16  flex justify-between items-center bg-black`}>
       <img src={headerLogo} alt="Logo" className="w-36 h-16 "></img>
-      <div className="flex gap-10 items-center">
-        <p
-          className="text-white underline cursor-pointer"
-          onClick={() => handleGptPageToggle()}
+      <div className="flex gap-5 items-center px-4">
+        <button
+          onClick={handleGptPageToggle}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-200
+            ${isGptPageActive ? "bg-linear-to-r from-purple-500 to-pink-500 cursor-pointer" : "bg-linear-to-r from-blue-300 to-indigo-700 cursor-pointer"}
+            hover:scale-105 hover:brightness-110 focus:outline-none`}
         >
-          {isGptPageActive ? `Home` : `Netflix GPT`}
-        </p>
+          <span className="text-white">
+            {isGptPageActive ? "Home" : "Netflix GPT"}
+          </span>
+          <Sparkles className="text-white w-5 h-5" />
+        </button>
         {user && (
-          <div className="flex gap-1 flex-row ">
-            <img
-              src={userAvatar}
-              alt="userAvatar"
-              className="w-8 h-8 cursor-pointer mr-3"
-              onClick={() => handleSignOut()}
-            />
+          <div className="flex gap-1 flex-row bg-white rounded-full p-2 ">
+            <LogOut className="text-black w-5 h-5 cursor-pointer" />
           </div>
         )}
       </div>
