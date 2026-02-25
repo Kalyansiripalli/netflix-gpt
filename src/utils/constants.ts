@@ -10,9 +10,9 @@ export const loginPageBgImage =
 export const tmdbApiOptions = {
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZGQ5NDEzNmI4NmIzMTNlYzAxYmRkZDY0NzViOGU1ZCIsIm5iZiI6MTc2OTE5MzczOC42NDQsInN1YiI6IjY5NzNjMTBhMDIwZWEzZDg0NWFlZTQ0OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LzIl-Sv4WCgNbN1_KM3i09dkmDQvKAY43Sztq4xphqg",
+    Authorization: "Bearer " + import.meta.env.VITE_TMDB_KEY,
   },
 };
 
 export const imageUrl = "https://image.tmdb.org/t/p/w200";
+export const openAiApiKey = import.meta.env.VITE_OPENAI_KEY;

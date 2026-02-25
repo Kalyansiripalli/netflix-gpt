@@ -7,6 +7,7 @@ import useUpComingMovies from "../customHooks/useUpComingMovies";
 import MovieList from "./MovieList";
 import { useSelector } from "react-redux";
 import { GptPage } from "./GptPage";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
   // when the page is loaded make the api call to get the movies and update them in the store
@@ -38,13 +39,14 @@ const Browse = () => {
       ) : (
         <div className="flex flex-1 flex-col overflow-y-auto bg-black">
           <MainContainer />
+          {/* lists div */}
           <div className="w-full bg-[#141414]">
             {list.map((item) => (
               <div className="ml-16 gap-3 flex flex-col py-2">
                 <h1 className="font-bold text-xl text-white">
                   {headinMap[item]}
                 </h1>
-                <MovieList type={item} />
+                <SecondaryContainer type={item} />
               </div>
             ))}
           </div>
