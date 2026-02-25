@@ -6,13 +6,11 @@ import VideoBackground from "./VideoBackground";
 const MainContainer = () => {
   const movies = useSelector((store: any) => store.movies?.nowPlayingMovies);
   if (!movies) return;
-
-  // get the video details and play the trailer in the iframe
   const mainMovie = movies[0];
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full shrink-0 flex flex-col relative">
       <VideoBackground movieId={id} />
       <VideoTitle original_title={original_title} overview={overview} />
     </div>
