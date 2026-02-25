@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <div className={`w-full h-16  flex justify-between items-center bg-black`}>
       <img src={headerLogo} alt="Logo" className="w-36 h-16 "></img>
-      <div className="flex gap-5 items-center px-4">
+      <div className="flex gap-10 items-center">
         <button
           onClick={handleGptPageToggle}
           className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all duration-200
@@ -58,7 +58,10 @@ const Header = () => {
         </button>
         {user && (
           <div className="flex gap-1 flex-row bg-white rounded-full p-2 ">
-            <LogOut className="text-black w-5 h-5 cursor-pointer" />
+            <LogOut
+              className="text-black w-5 h-5 cursor-pointer"
+              onClick={() => handleSignOut()}
+            />
           </div>
         )}
       </div>
